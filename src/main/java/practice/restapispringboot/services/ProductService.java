@@ -1,6 +1,7 @@
 package practice.restapispringboot.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -27,15 +28,26 @@ public class ProductService {
     }
 
     public Product findOne(Long id) {
-        return productRepo.findById(id).get();
+        Optional<Product> product = productRepo.findById(id);
+        // if (!product.isPresent()) {
+        //     return null;
+        // }
+        // return productRepo.findById(id).get();
+
+        return !product.isPresent() ? null:product.get();
     }
 
     public Iterable<Product> findAll() {
         return productRepo.findAll();
     }
 
-    public void deleteOne(Long id) {
+    public Boolean deleteOne(Long id) {
+        // productRepo.deleteById(id);
+        if(findOne(id) == null) {
+            return false;
+        }
         productRepo.deleteById(id);
+        return true;
     }
 
     public List<Product> findByName(String name) {
