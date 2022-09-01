@@ -1,5 +1,7 @@
 package practice.restapispringboot.models.repositories;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import practice.restapispringboot.models.entities.Product;
@@ -15,4 +17,12 @@ import practice.restapispringboot.models.entities.Product;
  */
 public interface ProductRepo extends CrudRepository<Product, Long>{
     
+    /**
+     * spring has a feature called derivate function or query function
+     * with that feature, spring can know what we want to query based on the name of the method we wrote
+     * So it will automatically make query on the fly when we call the method
+     * @param name
+     * @return
+     */
+    List<Product> findByNameContains(String name);
 }
