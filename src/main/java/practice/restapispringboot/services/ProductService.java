@@ -29,6 +29,7 @@ public class ProductService {
 
     public Product findOne(Long id) {
         Optional<Product> product = productRepo.findById(id);
+        
         // if (!product.isPresent()) {
         //     return null;
         // }
@@ -43,7 +44,8 @@ public class ProductService {
 
     public Boolean deleteOne(Long id) {
         // productRepo.deleteById(id);
-        if(findOne(id) == null) {
+        Optional<Product> product = productRepo.findById(id);
+        if(!product.isPresent()) {
             return false;
         }
         productRepo.deleteById(id);
