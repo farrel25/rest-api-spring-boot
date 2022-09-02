@@ -15,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity // to mark this class as entity
 
 /**
@@ -26,6 +30,10 @@ import javax.validation.constraints.NotEmpty;
  * and jpa will connect this class Product with table products
  */
 @Table(name = "products")
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id"
+)
 public class Product implements Serializable{
 
     /**
@@ -61,6 +69,7 @@ public class Product implements Serializable{
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "supplier_id")
         )
+    // @JsonManagedReference
     private Set<Supplier> suppliers;
 
     public Product() {

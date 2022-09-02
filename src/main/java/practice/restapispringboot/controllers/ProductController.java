@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import practice.restapispringboot.dto.ResponseData;
+import practice.restapispringboot.dto.SupplierData;
 import practice.restapispringboot.models.entities.Product;
+import practice.restapispringboot.models.entities.Supplier;
 import practice.restapispringboot.services.ProductService;
 
 @RestController // to mark this class as Rest Controller
@@ -110,6 +112,11 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable("id") Long id) {
         productService.deleteOne(id);;
+    }
+
+    @PostMapping("/{id}")
+    public void addSupplier(@RequestBody Supplier supplier, @PathVariable("id") Long productId) {
+        productService.addSupplier(supplier, productId);
     }
     
 }
