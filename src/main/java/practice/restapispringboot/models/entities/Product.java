@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity // to mark this class as entity
 
@@ -32,9 +33,15 @@ public class Product implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY) // to make this primary key id column able to auto increment
     private Long id;
 
+    /**
+     * @NotEmpty
+     * used for validating column that must have value and can't be null
+     */
+    @NotEmpty(message = "name is required")
     @Column(name = "product_name", length = 100)
     private String name;
 
+    @NotEmpty(message = "description is required")
     @Column(length = 500)
     private String description;
 

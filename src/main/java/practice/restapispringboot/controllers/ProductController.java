@@ -1,6 +1,12 @@
 package practice.restapispringboot.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import practice.restapispringboot.dto.ResponseData;
 import practice.restapispringboot.models.entities.Product;
 import practice.restapispringboot.services.ProductService;
 
@@ -23,15 +30,50 @@ public class ProductController {
 
     /**
      * because the data will be sent through request body
-     * so we need to add annotation
-     * @RequestBody
+     * so we need to add annotation @RequestBody
+     * 
+     * we need to tell the controller if there are some data need to validate first
+     * it can be done by using @Valid
+     * the data will be validated based on validation annotation in entity class
+     * if the data is not valid, then error object will be generated
+     * so we need to add second parameter with -> Errors errors
+     * 
+     * because the return value will be formatted as json that consist error http response or success http response or etc
+     * then the data type can't be Product anymore
+     * so, the data type used by this method changed to ResponseEntity that encapsulated using ResponseData (dto).
+     * Because ResponseData is generic class, so it can return any object
+     * in this case, it will return Product
      * 
      * @param product
      * @return
      */
     @PostMapping // to mark this method as POST request
-    public Product create(@RequestBody Product product) {
-        return productService.save(product);
+    public ResponseEntity<ResponseData<Product>> create(@Valid @RequestBody Product product, Errors errors) {
+
+        ResponseData<Product> responseData = new ResponseData<>();
+
+        if (errors.hasErrors()) {
+            for (ObjectError error : errors.getAllErrors()) {
+                // System.err.println(error.getDefaultMessage()); // print error message in terminal
+
+                // error message will be stored in messages property that belongs to ResponseData object
+                responseData.getMessages().add(error.getDefaultMessage());
+            }
+            // throw new RuntimeException("Validation error"); // throw a RuntimeException as a response
+
+            responseData.setStatus(false);
+            responseData.setPayload(null);
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+        }
+        // return productService.save(product);
+
+        responseData.setStatus(true);
+        responseData.setPayload(productService.save(product));
+
+        // return ResponseEntity.status(HttpStatus.OK).body(responseData);
+        return ResponseEntity.ok(responseData);
+
     }
 
     @GetMapping // to mark this method as GET request
@@ -45,8 +87,24 @@ public class ProductController {
     }
 
     @PutMapping // to mark this method as PUT request
-    public Product update(@RequestBody Product product) {
-        return productService.save(product);
+    public ResponseEntity<ResponseData<Product>> update(@Valid @RequestBody Product product, Errors errors) {
+        ResponseData<Product> responseData = new ResponseData<>();
+
+        if (errors.hasErrors()) {
+            for (ObjectError error : errors.getAllErrors()) {
+                responseData.getMessages().add(error.getDefaultMessage());
+            }
+            responseData.setStatus(false);
+            responseData.setPayload(null);
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+        }
+        // return productService.save(product);
+
+        responseData.setStatus(true);
+        responseData.setPayload(productService.save(product));
+
+        return ResponseEntity.ok(responseData);
     }
 
     @DeleteMapping("/{id}")
