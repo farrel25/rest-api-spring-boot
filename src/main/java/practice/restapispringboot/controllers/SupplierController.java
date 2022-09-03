@@ -46,6 +46,21 @@ public class SupplierController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
         }
 
+        /**
+         * the save method in supplierService need Supplier object as argument,
+         * but this create method just accepted DTO class which is SupplierData object,
+         * so we need to tranform or map that SupplierData object into Supplier.
+         * 
+         * there are 2 ways to do this:
+         * 1. set all properties in Supplier object with SupplierData properties using setter getter manually
+         * 2. use Model Mapper Dependencies to map all matching properties from SupplierData object into Supplier object
+         * 
+         * for the second option, there are some step to do:
+         * 1. add Model Mapper dependencies inside pom.xml
+         * 2. create Bean of Model Mapper object, we can write the code inside RestApiSpringBootApplication.java
+         * 3. by creating the Bean of Model Mapper object, we can inject it into this controller
+         * 4. then we can use the map method from Model Mapper to map all matching properties from SupplierData object into Supplier object automatically
+         */
         // Supplier supplier = new Supplier();
         // supplier.setName(supplierData.getName());
         // supplier.setAddress(supplierData.getAddress());
