@@ -1,5 +1,6 @@
 package practice.restapispringboot.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,9 @@ public class ProductService {
     // inject to its repository interface (Dependency Injection)
     @Autowired
     private ProductRepo productRepo; // repository object with ProductRepo data type
+
+    @Autowired
+    private SupplierService supplierService;
 
     // CREATE and UPDATE can use save method from productRepo
     public Product save(Product product) {
@@ -65,5 +69,25 @@ public class ProductService {
         product.getSuppliers().add(supplier);
         save(product);
     }
+
+    // Custom query implementation
+    public Product findByProductName(String name) {
+        return productRepo.findProductByName(name);
+    }
+
+    public List<Product> findByProductNameLike(String name) {
+        return productRepo.findProductByNameLike("%" + name + "%");
+    }
     
+    public List<Product> findByCategoryId(Long categoryId) {
+        return productRepo.findProductByCategoryId(categoryId);
+    }
+
+    public List<Product> findBySupplier(Long supplierId) {
+        Supplier supplier = supplierService.findOne(supplierId);
+        if (supplier == null) {
+            return new ArrayList<>();
+        }
+        return productRepo.findProductBySupplier(supplier);
+    };
 }

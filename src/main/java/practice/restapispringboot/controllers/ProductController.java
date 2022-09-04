@@ -1,5 +1,7 @@
 package practice.restapispringboot.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import practice.restapispringboot.dto.ResponseData;
-import practice.restapispringboot.dto.SupplierData;
+import practice.restapispringboot.dto.SearchData;
 import practice.restapispringboot.models.entities.Product;
 import practice.restapispringboot.models.entities.Supplier;
 import practice.restapispringboot.services.ProductService;
@@ -118,5 +120,24 @@ public class ProductController {
     public void addSupplier(@RequestBody Supplier supplier, @PathVariable("id") Long productId) {
         productService.addSupplier(supplier, productId);
     }
+
+    @PostMapping("/search/name")
+    public Product findByName(@RequestBody SearchData searchData) {
+        return productService.findByProductName(searchData.getSearchKey());
+    }
     
+    @PostMapping("/search/name-like")
+    public List<Product> findByNameLike(@RequestBody SearchData searchData) {
+        return productService.findByProductNameLike(searchData.getSearchKey());
+    }
+
+    @GetMapping("/search/category/{categoryId}")
+    public List<Product> findByCategoryId(@PathVariable("categoryId") Long categoryId) {
+        return productService.findByCategoryId(categoryId);
+    }
+
+    @GetMapping("/search/supplier/{supplierId}")
+    public List<Product> findBySupplier(@PathVariable("supplierId") Long supplierId) {
+        return productService.findBySupplier(supplierId);
+    }
 }
