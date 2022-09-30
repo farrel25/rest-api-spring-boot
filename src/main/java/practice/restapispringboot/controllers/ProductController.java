@@ -85,6 +85,19 @@ public class ProductController {
         return productService.findAll();
     }
 
+    /**
+     * to capture id parameter in url/endpoint, 
+     * we need to add "/{id}" as argument in @GetMapping annotation
+     * 
+     * so that the id parameter in the url / endpoint is connected 
+     * to the id parameter in the findOne() method, it is necessary 
+     * to add the @PathVariable() annotation with arguments that 
+     * must be the same as those in its Mapping annotation, in this 
+     * case is "id"
+     * 
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Product findOne(@PathVariable("id") Long id) {
         return productService.findOne(id);
