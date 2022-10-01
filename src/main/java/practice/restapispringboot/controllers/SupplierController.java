@@ -1,5 +1,7 @@
 package practice.restapispringboot.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import practice.restapispringboot.dto.ResponseData;
+import practice.restapispringboot.dto.SearchData;
 import practice.restapispringboot.dto.SupplierData;
 import practice.restapispringboot.models.entities.Supplier;
 import practice.restapispringboot.services.SupplierService;
@@ -108,5 +111,25 @@ public class SupplierController {
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable("id") Long id) {
         supplierService.deleteOne(id);
+    }
+
+    @PostMapping("/search/email")
+    public Supplier findByEmail(@RequestBody SearchData searchData) {
+        return supplierService.findByEmail(searchData.getSearchKey());
+    }
+    
+    @PostMapping("/search/name-contains")
+    public List<Supplier> findByNameContainsOrderByIdDesc(@RequestBody SearchData searchData) {
+        return supplierService.findByNameContainsOrderByIdDesc(searchData.getSearchKey());
+    }
+    
+    @PostMapping("/search/name-starts-with")
+    public List<Supplier> findByNameStartsWith(@RequestBody SearchData searchData) {
+        return supplierService.findByNameStartsWith(searchData.getSearchKey());
+    }
+
+    @PostMapping("/search/name-or-email-contains")
+    public List<Supplier> findByNameContainsOrEmailContains(@RequestBody SearchData searchData) {
+        return supplierService.findByNameContainsOrEmailContains(searchData.getSearchKey(), searchData.getSearchKey2());
     }
 }

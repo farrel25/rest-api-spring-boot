@@ -1,5 +1,6 @@
 package practice.restapispringboot.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -32,5 +33,22 @@ public class SupplierService {
 
     public void deleteOne(Long id) {
         supplierRepo.deleteById(id);
+    }
+
+    // Derived Method Implementation
+    public Supplier findByEmail(String email) {
+        return supplierRepo.findByEmail(email);
+    }
+    
+    public List<Supplier> findByNameContainsOrderByIdDesc(String name) {
+        return supplierRepo.findByNameContainsOrderByIdDesc(name);
+    }
+    
+    public List<Supplier> findByNameStartsWith(String prefix) {
+        return supplierRepo.findByNameStartsWith(prefix);
+    }
+    
+    public List<Supplier> findByNameContainsOrEmailContains(String name, String email) {
+        return supplierRepo.findByNameContainsOrEmailContains(name, email);
     }
 }
