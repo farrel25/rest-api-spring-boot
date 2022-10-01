@@ -1,9 +1,14 @@
 package practice.restapispringboot.controllers;
 
+import java.util.Arrays;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import practice.restapispringboot.dto.CategoryData;
 import practice.restapispringboot.dto.ResponseData;
+import practice.restapispringboot.dto.SearchData;
 import practice.restapispringboot.models.entities.Category;
 import practice.restapispringboot.services.CategoryService;
 
@@ -89,5 +95,49 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable("id") Long id) {
         categoryService.deleteOne(id);
+    }
+
+    /**
+     * paging the query result based on size param (size of each page)
+     * and page param (to show which page number)
+     */
+    @PostMapping("/search/name-contains/{size}/{page}")
+    public Iterable<Category> findByNameContains(@RequestBody SearchData searchData, @PathVariable("size") Integer size, @PathVariable("page") Integer page) {
+        Pageable pageable = PageRequest.of(page, size);
+        
+        return categoryService.findByNameContains(searchData.getSearchKey(), pageable);
+    }
+
+    /**
+     * paging the query result based on @param size (size of each page)
+     * and @param page (to show which page number). Also sorting based on
+     * @param sort with defaut value is asc
+     */
+    @PostMapping("/search/name-contains/{size}/{page}/{sort}")
+    public Iterable<Category> findByNameContains(@RequestBody SearchData searchData, @PathVariable("size") Integer size, @PathVariable("page") Integer page, @PathVariable("sort") String sort) {
+
+        // default sort is ascending
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+
+        if (sort.equalsIgnoreCase("desc")) {
+            pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        }
+        
+        return categoryService.findByNameContains(searchData.getSearchKey(), pageable);
+    }
+
+    @PostMapping("/batch")
+    public ResponseEntity<ResponseData<Iterable<Category>>> createBatch(@RequestBody Category[] categories) {
+        ResponseData<Iterable<Category>> responseData = new ResponseData<>();
+
+        // Arrays.asList(categories)
+        /**
+         * Arrays.asList(categories)
+         * because of saveBatch() method need parameter with Iterable type instead of array of Category,
+         * then we need to casting using Arrays.asList()
+         */
+        responseData.setPayload(categoryService.saveBatch(Arrays.asList(categories)));
+        responseData.setStatus(true);
+        return ResponseEntity.ok(responseData);
     }
 }

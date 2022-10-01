@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.transaction.TransactionScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import practice.restapispringboot.models.entities.Category;
@@ -34,4 +35,14 @@ public class CategoryService {
         categoryRepo.deleteById(id);
     }
     
+    public Iterable<Category> findByNameContains(String name, Pageable pageable) {
+        return categoryRepo.findByNameContains(name, pageable);
+        // return categoryRepo.findByNameContains(name, pageable).getContent();
+    }
+
+    // batch create
+    public Iterable<Category> saveBatch(Iterable<Category> categories) {
+        // this method usually used when upload data using csv/excel
+        return categoryRepo.saveAll(categories);
+    }
 }
