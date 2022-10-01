@@ -38,6 +38,7 @@ public class Supplier implements Serializable{
     @Column(length = 200, nullable = false)
     private String address;
 
+    // mapped by is filled with the name of the Supplier Entity Class field used in the Product Entity Class
     @ManyToMany(mappedBy = "suppliers")
     @JsonBackReference
     private Set<Product> products;

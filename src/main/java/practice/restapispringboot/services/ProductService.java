@@ -61,6 +61,15 @@ public class ProductService {
         return productRepo.findByNameContains(name);
     }
 
+    /**
+     * Actually we can just send the supplier id and product id,
+     * it doesn't need to be a supplier object.
+     * So who is the supplier and what product,
+     * it's like being married later.
+     * 
+     * @param supplier
+     * @param productId
+     */
     public void addSupplier(Supplier supplier, Long productId) {
         Product product = findOne(productId);
         if (product == null) {

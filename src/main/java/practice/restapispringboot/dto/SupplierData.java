@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
  * This DTO class only include the data needed when creating new data
  */
 public class SupplierData {
+
+    private Long id;
     
     @NotEmpty(message = "Name is required")
     private String name;
@@ -19,6 +21,14 @@ public class SupplierData {
     @NotEmpty(message = "Email is required")
     @Email(message = "Email is not valid")
     private String email;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

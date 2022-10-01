@@ -63,13 +63,17 @@ public class Product implements Serializable{
     @ManyToOne
     private Category category;
 
+    /**
+     * @JoinTable
+     * configuration of intermediate tables that have a many-to-many relationship
+     */
     @ManyToMany
     @JoinTable(
         name = "products_suppliers",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "supplier_id")
         )
-    @JsonManagedReference
+    // @JsonManagedReference
     private Set<Supplier> suppliers;
 
     public Product() {
