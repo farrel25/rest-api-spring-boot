@@ -66,8 +66,26 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-	</dependencies>
 
+		<!-- Spring Security -->
+		<!-- 
+			Spring boot is a preconfigured framework. So, once we
+			add a new dependency (eg spring security), it will
+			automatically be configured with the project. Then when
+			we run the project, all the endpoints that we have
+			created will be automatically secure.
+
+			As long as we haven't done any configuration related
+			to security implementation, every time the project is
+			run, it will automatically generate a new security
+			password with the default username, namely user.
+		 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>

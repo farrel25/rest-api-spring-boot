@@ -13,6 +13,10 @@ public class WelcomeController {
      * type the command below
      * mvn spring-boot:run
      * 
+     * HOW TO CHECK THAT THIS PROJECT BUILD IS SUCCESS
+     * type the command below
+     * mvn clean install
+     * 
      * DEFAULT SPRING BOOT LOCALHOST PORT
      * The Spring Boot framework provides the 
      * default embedded server (Tomcat) to run 
