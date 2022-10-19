@@ -9,9 +9,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * By extending BaseEntity<String>, this Category Entity
+ * will automatically have the properties in BaseEntity.
+ * 
+ * Next we need to implement auditor aware. JPA can easily get data
+ * createdDate & updatedDate from the system or machine timestamp.
+ * To tell the jpa who creates and who updates, we can do it by
+ * implementing AuditorAware interface. To implement it, we will create
+ * the impl class in the package utils.
+ */
 @Entity
 @Table(name = "product_categories")
-public class Category implements Serializable{
+public class Category extends BaseEntity<String> implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

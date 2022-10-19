@@ -19,6 +19,21 @@ public class CategoryService {
     private CategoryRepo categoryRepo;
 
     public Category save(Category category) {
+
+        /**
+         * kondisi untuk mengecek apakah data category yg diinput sudah ada id nya atau belum.
+         * kalau sudah ada id nya, berarti merupakan request update.
+         * supaya bisa mendapatkan data createdDate & createdBy nya dan supaya 2 field itu
+         * tidak berubah nilainya jadi null saat kita menjalankan method save dari categoryRepo, kita
+         * perlu ambil data nya sesuai id dari tabel dahulu, kemudian field/property name
+         * (field yg diupdate) nya di set pakai yg baru. Setelah itu kita timpa data category
+         * yg baru dengan currentCategory
+         */
+        if (category.getId() != null) {
+            Category currentCategory = categoryRepo.findById(category.getId()).get();
+            currentCategory.setName(category.getName());
+            category = currentCategory;
+        }
         return categoryRepo.save(category);
     }
 
