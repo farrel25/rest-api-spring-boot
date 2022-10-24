@@ -1,5 +1,9 @@
 package practice.restapispringboot.models.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -23,9 +27,7 @@ import javax.validation.constraints.NotEmpty;
 
 /**
  * @Table(name = "products")
- * 
- * when application run
- * jpa will check, is there any table called products or not
+ * when application run, jpa will check, is there any table called products or not
  * if not exist yet, jpa will generate the table with name products
  * and jpa will connect this class Product with table products
  */
@@ -34,11 +36,14 @@ import javax.validation.constraints.NotEmpty;
 //     generator = ObjectIdGenerators.PropertyGenerator.class,
 //     property = "id"
 // )
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product implements Serializable{
 
     /**
      * because this class implement Serializable interface
-     * so we're suggested to write serial version UID below
+     * so, we're suggested to write serial version UID below
      */
     private static final long serialVersionUID = 1L;
 
@@ -64,7 +69,7 @@ public class Product implements Serializable{
     private Category category;
 
     /**
-     * @JoinTable
+     * {@code @JoinTable}
      * configuration of intermediate tables that have a many-to-many relationship
      */
     @ManyToMany
@@ -76,62 +81,62 @@ public class Product implements Serializable{
     // @JsonManagedReference
     private Set<Supplier> suppliers;
 
-    public Product() {
-    }
-
-    public Product(Long id, String name, String description, Double price) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Set<Supplier> getSuppliers() {
-        return suppliers;
-    }
-
-    public void setSuppliers(Set<Supplier> suppliers) {
-        this.suppliers = suppliers;
-    }
+//    public Product() {
+//    }
+//
+//    public Product(Long id, String name, String description, Double price) {
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//        this.price = price;
+//    }
+//
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
+//
+//    public Double getPrice() {
+//        return price;
+//    }
+//
+//    public void setPrice(Double price) {
+//        this.price = price;
+//    }
+//
+//    public Category getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(Category category) {
+//        this.category = category;
+//    }
+//
+//    public Set<Supplier> getSuppliers() {
+//        return suppliers;
+//    }
+//
+//    public void setSuppliers(Set<Supplier> suppliers) {
+//        this.suppliers = suppliers;
+//    }
     
 }

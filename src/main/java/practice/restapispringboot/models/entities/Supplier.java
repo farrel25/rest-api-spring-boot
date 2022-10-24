@@ -12,6 +12,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 // import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 // import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -21,6 +24,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 //     generator = ObjectIdGenerators.PropertyGenerator.class,
 //     property = "id"
 // )
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Supplier implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -43,54 +49,54 @@ public class Supplier implements Serializable{
     @JsonBackReference
     private Set<Product> products;
 
-    public Supplier() {
-    }
-
-    public Supplier(Long id, String email, String name, String address) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.address = address;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }    
+//    public Supplier() {
+//    }
+//
+//    public Supplier(Long id, String email, String name, String address) {
+//        this.id = id;
+//        this.email = email;
+//        this.name = name;
+//        this.address = address;
+//    }
+//
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
+//
+//    public Set<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(Set<Product> products) {
+//        this.products = products;
+//    }
     
 }

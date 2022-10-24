@@ -35,6 +35,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -52,7 +58,7 @@
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
-			<version>3.0.0</version>
+			<version>3.1.0</version>
 		</dependency>
 		
 		<!-- Swagger -->
@@ -70,8 +76,8 @@
 		<!-- Spring Security -->
 		<!-- 
 			Spring boot is a preconfigured framework. So, once we
-			add a new dependency (eg spring security), it will
-			automatically be configured with the project. Then when
+			add a new dependency (e.g. spring security), it will
+			automatically be configured with the project. Then, when
 			we run the project, all the endpoints that we have
 			created will be automatically secure.
 
@@ -91,6 +97,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.7.4</version>
 			</plugin>
 		</plugins>
 	</build>

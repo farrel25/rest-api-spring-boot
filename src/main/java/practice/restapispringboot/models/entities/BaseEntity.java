@@ -7,6 +7,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -22,10 +25,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  * To make this BaseEntity class a kind of listener. Whenever
  * there is an event log such as CRUD from an entity that
  * extends this BaseEntity class, then this class will be
- * execute its properties.
+ * executed its properties.
  */
 @MappedSuperclass
 @EntityListeners(value = AuditingEntityListener.class)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BaseEntity<T> {
     
     @CreatedBy
@@ -42,35 +48,35 @@ public class BaseEntity<T> {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date updatedDate;
 
-    public T getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(T createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public T getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(T updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
+//    public T getCreatedBy() {
+//        return createdBy;
+//    }
+//
+//    public void setCreatedBy(T createdBy) {
+//        this.createdBy = createdBy;
+//    }
+//
+//    public Date getCreatedDate() {
+//        return createdDate;
+//    }
+//
+//    public void setCreatedDate(Date createdDate) {
+//        this.createdDate = createdDate;
+//    }
+//
+//    public T getUpdatedBy() {
+//        return updatedBy;
+//    }
+//
+//    public void setUpdatedBy(T updatedBy) {
+//        this.updatedBy = updatedBy;
+//    }
+//
+//    public Date getUpdatedDate() {
+//        return updatedDate;
+//    }
+//
+//    public void setUpdatedDate(Date updatedDate) {
+//        this.updatedDate = updatedDate;
+//    }
 }
