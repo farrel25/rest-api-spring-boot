@@ -24,7 +24,9 @@ public class SupplierService {
 
     public Supplier findOne(Long id) {
         Optional<Supplier> supplier = supplierRepo.findById(id);
-        return !supplier.isPresent() ? null : supplier.get();
+
+        //return !supplier.isPresent() ? null : supplier.get();
+        return supplier.orElse(null);
     }
 
     public Iterable<Supplier> findAll() {
